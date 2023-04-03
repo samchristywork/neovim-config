@@ -67,3 +67,18 @@ Plugin 'rebelot/kanagawa.nvim'        " Color scheme
 Plugin 'yashguptaz/calvera-dark.nvim' " Color scheme
 
 call vundle#end()
+
+colorscheme slate
+
+lua require('autocommands')
+lua require('autorun')
+lua require('keybindings')
+lua require('movement')
+lua require('plugin_setup')
+lua require('scratch')
+lua require('settings')
+lua require('sidebars')
+lua require('telescope')
+
+" Must be after settings
+lua require('highlight')
