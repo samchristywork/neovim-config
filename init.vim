@@ -73,6 +73,7 @@ colorscheme slate
 lua require('autocommands')
 lua require('autorun')
 lua require('keybindings')
+lua require('mappings')
 lua require('movement')
 lua require('plugin_setup')
 lua require('scratch')
