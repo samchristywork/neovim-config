@@ -28,6 +28,8 @@ Plugin 'mhinz/vim-startify'               " Start screen
 Plugin 'raghur/vim-ghost'                 " Type in the browser
 Plugin 'terryma/vim-expand-region'        " + to expand visual selection and - to shrink it
 Plugin 'tpope/vim-fugitive.git'           " Git commands
+Plugin 'wellle/visual-split.vim'          " Resize split pane to match selection size
+Plugin 'ziontee113/color-picker.nvim'     " Color picker
 
 " Widgets/Graphical
 Plugin 'AckslD/messages.nvim'          " Shows messages in floating buffer
@@ -52,6 +54,7 @@ Plugin 'nvim-treesitter/nvim-treesitter'         " Syntax highlighting
 Plugin 'nvim-treesitter/nvim-treesitter-context' " Show context at top of screen
 
 Plugin 'L3MON4D3/LuaSnip'         " Snippets plugin
+Plugin 'hrsh7th/cmp-buffer'       " Use the current buffer as a completion source
 Plugin 'hrsh7th/cmp-nvim-lsp'     " LSP source for nvim-cmp
 Plugin 'hrsh7th/nvim-cmp'         " Autocompletion plugin
 Plugin 'saadparwaiz1/cmp_luasnip' " Snippets source for nvim-cmp
