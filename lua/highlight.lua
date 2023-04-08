@@ -16,3 +16,14 @@ vim.cmd("hi StatusMain guifg=#888888 guibg=#222222 ctermbg=46 ctermfg=0")
 
 -- Selection
 vim.cmd("hi Visual cterm=underline ctermfg=186 ctermbg=64 gui=underline guifg=#5f8700 guibg=#071000")
+
+-- Key command to interpret ASCII checkboxes
+vim.keymap.set("n", "<leader>h", function()
+  vim.cmd([[set conceallevel=1]])
+  vim.cmd([[syntax match todoCheckbox "\[\ \]"hs=e-4 conceal cchar=]])
+  vim.cmd([[syntax match todoCheckbox "\[o\]"hs=e-4 conceal cchar=]])
+  vim.cmd([[syntax match todoCheckbox "\[x\]"hs=e-4 conceal cchar=☒]])
+  vim.cmd([[syntax match todoCheckbox "\[\.\]"hs=e-4 conceal cchar=⊡]])
+  vim.cmd([[syntax match todoCheckbox "\[/\]"hs=e-4 conceal cchar=⬕]])
+  vim.cmd([[highlight Conceal ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE]])
+end, { noremap = true, silent = true })
