@@ -73,6 +73,9 @@ call vundle#end()
 
 colorscheme slate
 
+runtime vim/statusline.vim
+runtime vim/plugin_setup.vim
+
 lua require('autocommands')
 lua require('autorun')
 lua require('keybindings')
