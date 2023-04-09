@@ -33,6 +33,7 @@ Plugin 'ziontee113/color-picker.nvim'     " Color picker
 
 " Widgets/Graphical
 Plugin 'AckslD/messages.nvim'          " Shows messages in floating buffer
+Plugin 'HiPhish/nvim-ts-rainbow2'      " Rainbow parentheses
 Plugin 'airblade/vim-gitgutter.git'    " Display status of lines in the leftmost line
 Plugin 'ap/vim-css-color'              " Preview CSS colors
 Plugin 'bling/vim-bufferline'          " Lists the open buffers in the status line
@@ -69,10 +70,14 @@ Plugin 'embark-theme/vim'             " Color scheme
 Plugin 'rebelot/kanagawa.nvim'        " Color scheme
 Plugin 'yashguptaz/calvera-dark.nvim' " Color scheme
 
+" Rust autocomplete
+Plugin 'neoclide/coc.nvim'
+
 call vundle#end()
 
 colorscheme slate
 
+runtime vim/scratch.vim
 runtime vim/statusline.vim
 runtime vim/plugin_setup.vim
 
@@ -86,6 +91,8 @@ lua require('scratch')
 lua require('settings')
 lua require('sidebars')
 lua require('telescope')
+
+lua require('init')
 
 " Must be after settings
 lua require('highlight')
