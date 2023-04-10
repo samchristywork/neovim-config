@@ -9,8 +9,6 @@ vim.keymap.set('n', '<leader>D', 'yy@"', {desc = "Run VimScript on current line"
 vim.g.html_number_lines = 0
 vim.keymap.set('v', '<leader>C', ':TOhtml<cr>/vimCodeElement<cr>V/<\\/pre><cr>"*y:q!<cr>', {desc = "Copy syntax-highlighted text to HTML"})
 
-vim.keymap.set('n', '<leader>F', "mm:%!clang-format<cr>'mzz", {desc = "Format using clang-format"})
-
 -- Telescope
 vim.keymap.set('n', '<leader>fG', ':Telescope grep_string search=<c-r><c-w><cr>', {desc = "Search for word under cursor"})
 vim.keymap.set('n', '<leader>fb', ':Telescope buffers<cr>', {desc = "Search for buffers"})
@@ -24,3 +22,19 @@ vim.keymap.set('n', '<leader>fh', ':Telescope help_tags<cr>', {desc = "Search fo
 vim.keymap.set('n', '<leader>u', '<c-w>n<c-w>L:term sc-im<cr>:set nonu<cr>', {desc = "Open a terminal with sc-im in a new window"})
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', {desc = "Exit terminal insert mode using escape"})
+
+-- Bindings for C/C++
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = {"*.c", "*.cpp"},
+  callback = function()
+    vim.keymap.set('n', '<leader>F', "mm:%!clang-format<cr>'mzz", {desc = "Format using clang-format"})
+  end,
+})
+
+-- Bindings for Rust
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = {"*.rs"},
+  callback = function()
+    vim.keymap.set('n', '<leader>F', ":!cargo fmt<cr>", {desc = "Format using cargo fmt"})
+  end,
+})
