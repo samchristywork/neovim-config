@@ -83,6 +83,7 @@ runtime vim/plugin_setup.vim
 
 lua require('autocommands')
 lua require('autorun')
+lua require('git')
 lua require('keybindings')
 lua require('mappings')
 lua require('movement')
