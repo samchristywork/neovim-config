@@ -48,6 +48,7 @@ Plugin 'preservim/nerdtree'            " File browser
 Plugin 'preservim/tagbar'              " Browse tags ordered by scope
 Plugin 'rcarriga/nvim-notify'          " Notification manager
 Plugin 'sidebar-nvim/sidebar.nvim'     " Sidebar
+Plugin 'tanvirtin/vgit.nvim'           " Graphical git status
 Plugin 'tc50cal/vim-terminal'          " :TerminalSplit
 
 " LSP/Syntax
