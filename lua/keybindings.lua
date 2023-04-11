@@ -23,6 +23,8 @@ vim.keymap.set('n', '<leader>u', '<c-w>n<c-w>L:term sc-im<cr>:set nonu<cr>', {de
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', {desc = "Exit terminal insert mode using escape"})
 
+vim.keymap.set('n', '<F6>', ':DiffviewFileHistory %<cr>', {desc = "Open file history"})
+
 -- Bindings for C/C++
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
   pattern = {"*.c", "*.cpp"},

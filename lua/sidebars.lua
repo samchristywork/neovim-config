@@ -1,6 +1,6 @@
 vim.keymap.set('n', '<F1>', ':SidebarNvimToggle<cr>')
 vim.keymap.set('n', '<F2>', ':TagbarToggle<cr>')
-vim.keymap.set('n', '<F3>', ':NERDTreeToggle<cr>')
+vim.keymap.set('n', '<F3>', ':NvimTreeToggle<cr>')
 vim.g.tagbar_width = 40
 
 local sidebar_git_status = {

@@ -1,8 +1,8 @@
 -- Move cursor
-vim.keymap.set('', 'J', 'jjjjj')
-vim.keymap.set('', 'K', 'kkkkk')
-vim.keymap.set('', 'H', 'hhhhhhhhhh')
-vim.keymap.set('', 'L', 'llllllllll')
+vim.keymap.set('', 'J', '5j')
+vim.keymap.set('', 'K', '5k')
+vim.keymap.set('', 'H', '10h')
+vim.keymap.set('', 'L', '10l')
 
 -- Move between buffers
 vim.keymap.set('n', 'e', ':bn<cr>')

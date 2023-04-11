@@ -3,6 +3,7 @@ require("mason-lspconfig").setup { ensure_installed = { "lua_ls", "clangd", "vim
 require("nvim-treesitter.configs").setup { ensure_installed = { "c", "cpp", "lua", "vim", "rust", "bash", "haskell", "scheme" } }
 require("overlength").setup()
 require("scrollbar").setup()
+require("bufferline").setup{}
 
 require('vgit').setup({
   keymaps = {

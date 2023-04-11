@@ -1,3 +1,4 @@
+" General/Misc
 Plugin 'VundleVim/Vundle.vim'   " Package manager
 Plugin 'raghur/vim-ghost'       " Type in the browser
 Plugin 'tpope/vim-fugitive.git' " Git commands
