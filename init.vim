@@ -39,6 +39,7 @@ lua require('plugin_setup')
 lua require('scratch')
 lua require('settings')
 lua require('sidebars')
+lua require('snippets')
 lua require('telescope')
 
 lua require('init')
