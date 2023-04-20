@@ -34,3 +34,7 @@ vim.opt.tags = "./tags,tags,/home/sam/.commontags/tags"         -- Tags file loc
 vim.opt.completeopt = "menu,menuone,noselect"                   -- menuone is default, menu is for showing the menu even if there is only one match, noselect is for not selecting the first match
 vim.opt.scrolloff = 5                                           -- Number of lines to keep above and below cursor
 vim.opt.autoread = true                                         -- Reload file if it changes on disk
+vim.g.tagbar_show_tag_linenumbers = 2                           -- Show line numbers in tagbar
+vim.g.tagbar_sort = 0                                           -- Sort tagbar by tag name
+vim.g.html_number_lines = 0                                     -- Disable line numbers in :TOhtml output
+vim.g.html_use_css = 0                                          -- Use inline css instead of style tag for :TOhtml
