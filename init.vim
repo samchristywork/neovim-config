@@ -16,18 +16,17 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 :cnoreabbrev h vert h
 
 " ## Plugins
-set rtp+=~/.config/nvim/bundle/Vundle.vim
-
 " Remember to :checkhealth every once in a while
-call vundle#begin()
+call plug#begin()
 runtime vim/load_plugins.vim
-call vundle#end()
+call plug#end()
 
-colorscheme slate
+colorscheme catppuccin
 
+runtime vim/plugin_setup.vim
 runtime vim/scratch.vim
 runtime vim/statusline.vim
-runtime vim/plugin_setup.vim
+runtime vim/util.vim
 
 lua require('autocommands')
 lua require('autorun')
@@ -36,6 +35,7 @@ lua require('keybindings')
 lua require('mappings')
 lua require('movement')
 lua require('plugin_setup')
+lua require('rust')
 lua require('scratch')
 lua require('settings')
 lua require('sidebars')
