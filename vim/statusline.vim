@@ -11,19 +11,8 @@ function! WordCount()
 endfunction
 
 set statusline=
-let g:bufferline_echo = 0
-let g:bufferline_active_buffer_left = ''
-let g:bufferline_active_buffer_right = ''
-" set statusline+=%{bufferline#refresh_status()}
-" set statusline+=%#StatusAccent#%{''}
-" set statusline+=%{g:bufferline_status_info.before}
-" set statusline+=%#BufferlineSelected#%{''}
-" set statusline+=%{g:bufferline_status_info.current}
-" set statusline+=%#StatusAccent#%{''}
-" set statusline+=%{g:bufferline_status_info.after}
 set statusline+=%#StatusMain#%{''}
 set statusline+=\ 
-" set statusline+=%{nvim_treesitter#statusline(90)}\ 
 set statusline+=%=
 set statusline+=%#StatusMain#%{''}
 set statusline+=%#StatusAccent#%{''}
