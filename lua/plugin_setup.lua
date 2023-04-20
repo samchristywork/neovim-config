@@ -1,7 +1,6 @@
 require("mason").setup()
-require("mason-lspconfig").setup { ensure_installed = { "lua_ls", "clangd", "vimls", "bashls", "rust_analyzer", "hls" } }
-require("nvim-treesitter.configs").setup { ensure_installed = { "c", "cpp", "lua", "vim", "rust", "bash", "haskell", "scheme" } }
-require("overlength").setup()
+require("mason-lspconfig").setup { ensure_installed = { "lua_ls", "clangd", "vimls", "bashls", "rust_analyzer", "hls", "pyright" } }
+require("nvim-treesitter.configs").setup { ensure_installed = { "c", "cpp", "lua", "vim", "rust", "bash", "haskell", "scheme", "python" } }
 require("scrollbar").setup()
 require("bufferline").setup{}
 
@@ -140,7 +139,7 @@ require('vgit').setup({
     scene = {
       diff_preference = 'unified',
       keymaps = {
-        quit = 'q'
+        -- quit = 'q' -- Breaks macros
       }
     },
    diff_preview = {
@@ -225,3 +224,50 @@ require('vgit').setup({
     },
   }
 })
+
+local dap = require('dap')
+dap.configurations.rust = {
+  {
+    type = 'rust';
+    request = 'launch';
+    name = 'Debug';
+    program = '${file}';
+    cwd = vim.fn.getcwd();
+    args = {};
+  },
+}
+
+dap.adapters.rust = {
+  type = 'executable';
+  command = 'rust-analyzer';
+  args = { '--experimental', '--lsp' };
+}
+
+require("indent_blankline").setup {
+    space_char_blankline = " ",
+    show_current_context = true,
+    show_current_context_start = true,
+}
+
+function _G.Toggle_venn()
+    local venn_enabled = vim.inspect(vim.b.venn_enabled)
+    if venn_enabled == "nil" then
+        vim.b.venn_enabled = true
+        vim.cmd[[setlocal ve=all]]
+
+        -- draw a line on HJKL keystokes
+        vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<CR>", {noremap = true})
+        vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<CR>", {noremap = true})
+        vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<CR>", {noremap = true})
+        vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<CR>", {noremap = true})
+
+        -- draw a box by pressing "f" with visual selection
+        vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<CR>", {noremap = true})
+    else
+        vim.cmd[[setlocal ve=]]
+        vim.cmd[[mapclear <buffer>]]
+        vim.b.venn_enabled = nil
+    end
+end
+-- toggle keymappings for venn using <leader>v
+vim.api.nvim_set_keymap('n', '<leader>V', ":lua Toggle_venn()<CR>", { noremap = true})
