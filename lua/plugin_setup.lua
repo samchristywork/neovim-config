@@ -226,23 +226,6 @@ require('vgit').setup({
   }
 })
 
-require('dap').configurations.rust = {
-  {
-    type = 'rust';
-    request = 'launch';
-    name = 'Debug';
-    program = '${file}';
-    cwd = vim.fn.getcwd();
-    args = {};
-  },
-}
-
-require('dap').adapters.rust = {
-  type = 'executable';
-  command = 'rust-analyzer';
-  args = { '--experimental', '--lsp' };
-}
-
 require("indent_blankline").setup {
     space_char_blankline = " ",
     show_current_context = true,

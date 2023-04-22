@@ -25,3 +25,19 @@ require('dap').configurations.rust = {
   },
 }
 
+require('dap').configurations.rust = {
+  {
+    type = 'rust';
+    request = 'launch';
+    name = 'Debug';
+    program = '${file}';
+    cwd = vim.fn.getcwd();
+    args = {};
+  },
+}
+
+require('dap').adapters.rust = {
+  type = 'executable';
+  command = 'rust-analyzer';
+  args = { '--experimental', '--lsp' };
+}
