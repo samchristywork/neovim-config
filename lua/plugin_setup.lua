@@ -1,8 +1,9 @@
 require("mason").setup()
-require("mason-lspconfig").setup { ensure_installed = { "lua_ls", "clangd", "vimls", "bashls", "rust_analyzer", "hls", "pyright" } }
+require("mason-lspconfig").setup({ ensure_installed = { "lua_ls", "clangd", "vimls", "bashls", "rust_analyzer", "hls", "pyright" } })
 require("nvim-treesitter.configs").setup { ensure_installed = { "c", "cpp", "lua", "vim", "rust", "bash", "haskell", "scheme", "python" } }
 require("scrollbar").setup()
-require("bufferline").setup{}
+require("bufferline").setup()
+require("messages").setup()
 
 require('vgit').setup({
   keymaps = {
@@ -225,8 +226,7 @@ require('vgit').setup({
   }
 })
 
-local dap = require('dap')
-dap.configurations.rust = {
+require('dap').configurations.rust = {
   {
     type = 'rust';
     request = 'launch';
@@ -237,7 +237,7 @@ dap.configurations.rust = {
   },
 }
 
-dap.adapters.rust = {
+require('dap').adapters.rust = {
   type = 'executable';
   command = 'rust-analyzer';
   args = { '--experimental', '--lsp' };
@@ -271,3 +271,215 @@ function _G.Toggle_venn()
 end
 -- toggle keymappings for venn using <leader>v
 vim.api.nvim_set_keymap('n', '<leader>V', ":lua Toggle_venn()<CR>", { noremap = true})
+
+require 'lspconfig'.clangd.setup{}
+require 'lspconfig'.pyright.setup{}
+require 'lspconfig'.hls.setup{}
+require 'lspconfig'.bashls.setup{}
+require 'lspconfig'.vimls.setup{}
+require 'lspconfig'.lua_ls.setup{
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            }
+        }
+    }
+}
+
+-- Global mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+
+-- Use LspAttach autocommand to only map the following keys
+-- after the language server attaches to the current buffer
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    -- Enable completion triggered by <c-x><c-o>
+    -- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    -- Buffer local mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', '<space>K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, opts)
+    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<space>f', function()
+      vim.lsp.buf.format { async = true }
+    end, opts)
+  end,
+})
+
+-- luasnip setup
+local luasnip = require 'luasnip'
+
+-- nvim-cmp setup
+local cmp = require 'cmp'
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
+    ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
+    -- C-b (back) C-f (forward) for snippet placeholder navigation.
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<Tab>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    -- ['<Tab>'] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_next_item()
+    --   elseif luasnip.expand_or_jumpable() then
+    --     luasnip.expand_or_jump()
+    --   else
+    --     fallback()
+    --   end
+    -- end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  }),
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+    { name = 'buffer' },
+    { name = 'path' },
+    { name = 'emoji', insert=true },
+    { name = 'calc' },
+    { name = 'conventionalcommits' },
+    { name = 'nerdfont' },
+    -- { name = 'dictionary' },
+    -- { name = 'digraphs' },
+  },
+}
+
+require('dap').adapters.codelldb = {
+  type = 'server',
+  port = "1234",
+  executable = {
+    command = '/home/sam/.local/share/nvim/mason/bin/codelldb',
+    args = {"--port", "1234"},
+  }
+}
+
+require('dap').configurations.cpp = {
+  {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+  },
+}
+
+require('dap').configurations.c = require('dap').configurations.cpp
+
+vim.keymap.set('n', '<F9>', function() require('dap').continue() end)
+vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
+vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
+vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
+vim.keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
+vim.keymap.set('n', '<Leader>B', function() require('dap').set_breakpoint() end)
+vim.keymap.set('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+vim.keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
+vim.keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
+vim.keymap.set('n', '<leader>dw', function()
+  local widgets = require('dap.ui.widgets');
+  local sidebar = widgets.sidebar(widgets.scopes);
+  sidebar.open()
+end)
+
+vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
+  require('dap.ui.widgets').hover()
+end)
+vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
+  require('dap.ui.widgets').preview()
+end)
+vim.keymap.set('n', '<Leader>df', function()
+  local widgets = require('dap.ui.widgets')
+  widgets.centered_float(widgets.frames)
+end)
+vim.keymap.set('n', '<Leader>ds', function()
+  local widgets = require('dap.ui.widgets')
+  widgets.centered_float(widgets.scopes)
+end)
+
+require("color-picker").setup({ -- for changing icons & mappings
+	-- ["icons"] = { "ﱢ", "" },
+	-- ["icons"] = { "ﮊ", "" },
+	-- ["icons"] = { "", "ﰕ" },
+	-- ["icons"] = { "", "" },
+	-- ["icons"] = { "", "" },
+	["icons"] = { "ﱢ", "" },
+	["border"] = "rounded", -- none | single | double | rounded | solid | shadow
+	["keymap"] = { -- mapping example:
+		["U"] = "<Plug>ColorPickerSlider5Decrease",
+		["O"] = "<Plug>ColorPickerSlider5Increase",
+	},
+	["background_highlight_group"] = "Normal", -- default
+	["border_highlight_group"] = "FloatBorder", -- default
+  ["text_highlight_group"] = "Normal", --default
+})
+
+local opts = { noremap = true, silent = true }
+vim.keymap.set("n", "<C-c>", "<cmd>PickColor<cr>", opts)
+vim.keymap.set("i", "<C-c>", "<cmd>PickColorInsert<cr>", opts)
+-- vim.keymap.set("n", "your_keymap", "<cmd>ConvertHEXandRGB<cr>", opts)
+-- vim.keymap.set("n", "your_keymap", "<cmd>ConvertHEXandHSL<cr>", opts)
+
+vim.cmd([[hi FloatBorder guibg=NONE]]) -- if you don't want weird border background colors around the popup.
+
+-- disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
+
+-- empty setup using defaults
+require("nvim-tree").setup()
+
+-- OR setup with some options
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+
+require('orgmode').setup_ts_grammar()
+require('orgmode').setup({
+  org_agenda_files = {'~/org/*'},
+  org_default_notes_file = '~/org/refile.org',
+})

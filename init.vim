@@ -27,8 +27,6 @@ runtime vim/plugin_setup.vim
 runtime vim/statusline.vim
 runtime vim/util.vim
 
-lua require('autocommands')
-lua require('autorun')
 lua require('git')
 lua require('keybindings')
 lua require('mappings')
@@ -39,8 +37,6 @@ lua require('settings')
 lua require('sidebars')
 lua require('snippets')
 lua require('telescope')
-
-lua require('init')
 
 " Must be after settings
 lua require('highlight')
