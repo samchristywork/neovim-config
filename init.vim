@@ -24,7 +24,6 @@ call plug#end()
 colorscheme catppuccin
 
 runtime vim/plugin_setup.vim
-runtime vim/scratch.vim
 runtime vim/statusline.vim
 runtime vim/util.vim
 
@@ -36,7 +35,6 @@ lua require('mappings')
 lua require('movement')
 lua require('plugin_setup')
 lua require('rust')
-lua require('scratch')
 lua require('settings')
 lua require('sidebars')
 lua require('snippets')
