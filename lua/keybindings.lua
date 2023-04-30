@@ -41,3 +41,19 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
     vim.keymap.set('n', '<leader>F', ":!cargo fmt<cr>", {desc = "Format using cargo fmt"})
   end,
 })
+
+-- EasyMotion
+-- <Leader>f{char} to move to {char}
+vim.api.nvim_set_keymap('n', '<leader>mf', '<Plug>(easymotion-bd-f)', {})
+vim.api.nvim_set_keymap('x', '<leader>mf', '<Plug>(easymotion-overwin-f)', {})
+
+-- s{char}{char} to move to {char}{char}
+vim.api.nvim_set_keymap('n', '<leader>ms', '<Plug>(easymotion-overwin-f2)', {})
+
+-- Move to line
+vim.api.nvim_set_keymap('n', '<leader>ml', '<Plug>(easymotion-bd-jk)', {})
+vim.api.nvim_set_keymap('x', '<leader>ml', '<Plug>(easymotion-overwin-line)', {})
+
+-- Move to word
+vim.api.nvim_set_keymap('n', '<leader>mw', '<Plug>(easymotion-bd-w)', {})
+vim.api.nvim_set_keymap('x', '<leader>mw', '<Plug>(easymotion-overwin-w)', {})
