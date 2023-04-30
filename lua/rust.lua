@@ -2,6 +2,8 @@ require('rust-tools').setup()
 require('rust-tools').inlay_hints.set()
 require('rust-tools').inlay_hints.enable()
 
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 require 'lspconfig'.rust_analyzer.setup{
   settings = {
     ["rust-analyzer"] = {
@@ -9,7 +11,8 @@ require 'lspconfig'.rust_analyzer.setup{
         allFeatures = true,
       },
     }
-  }
+  },
+  capabilities = capabilities
 }
 
 require('dap').configurations.rust = {
