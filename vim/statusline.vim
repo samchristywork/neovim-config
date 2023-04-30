@@ -10,7 +10,13 @@ function! WordCount()
   return a
 endfunction
 
+function! CurrentTrackerStatus()
+  let l:output = system('cat ~/time_tracker/current_category')
+  return l:output
+endfunction
+
 set statusline=
+set statusline+=%#StatusAccent#%{CurrentTrackerStatus()}
 set statusline+=%#StatusMain#%{''}
 set statusline+=\ 
 set statusline+=%=
