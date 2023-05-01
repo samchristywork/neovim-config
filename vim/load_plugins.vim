@@ -1,12 +1,13 @@
 " General/Misc
 Plug 'dstein64/vim-startuptime'  " :StartupTime
+Plug 'easymotion/vim-easymotion' " Move around quickly
 Plug 'godlygeek/tabular'         " Auto-align text
 Plug 'nvim-lua/plenary.nvim'     " Useful functions, dependency for Telescope
-Plug 'nvim-orgmode/orgmode'      " 'Org' mode
 Plug 'raghur/vim-ghost'          " Type in the browser
 Plug 'terryma/vim-expand-region' " + to expand visual selection and - to shrink it
 Plug 'tpope/vim-fugitive'        " Git commands
 Plug 'tpope/vim-speeddating'     " Use CTRL-A and CTRL-X to increment/decrement dates
+Plug 'tpope/vim-surround'        " Add, delete, and change surroundings
 Plug 'wellle/visual-split.vim'   " Resize split pane to match selection size
 
 " Widgets/Menus
