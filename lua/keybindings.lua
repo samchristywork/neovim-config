@@ -24,6 +24,8 @@ vim.keymap.set('n', 'n',         'nzz',                                         
 vim.keymap.set('n', 's',         ':w<cr>',                                                 {desc = "Save using s"})
 vim.keymap.set('t', '<Esc>',     '<C-\\><C-n>',                                            {desc = "Exit terminal insert mode using escape"})
 vim.keymap.set('v', '<leader>C', ':TOhtml<cr>/vimCodeElement<cr>V/<\\/pre><cr>"*y:q!<cr>', {desc = "Copy syntax-highlighted text to HTML"})
+vim.keymap.set('n', '<c-d>',     '<c-d>zz',                                                {desc = "Scroll down half a page"})
+vim.keymap.set('n', '<c-u>',     '<c-u>zz',                                                {desc = "Scroll up half a page"})
 
 -- Bindings for C/C++
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
