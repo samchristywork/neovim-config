@@ -342,19 +342,22 @@ end
 -- toggle keymappings for venn using <leader>v
 vim.api.nvim_set_keymap('n', '<leader>V', ":lua Toggle_venn()<CR>", { noremap = true})
 
-require 'lspconfig'.clangd.setup{}
-require 'lspconfig'.pyright.setup{}
-require 'lspconfig'.hls.setup{}
-require 'lspconfig'.bashls.setup{}
-require 'lspconfig'.vimls.setup{}
-require 'lspconfig'.lua_ls.setup{
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+require('lspconfig').clangd.setup{ capabilities = capabilities }
+require('lspconfig').pyright.setup{ capabilities = capabilities }
+require('lspconfig').hls.setup{ capabilities = capabilities }
+require('lspconfig').bashls.setup{ capabilities = capabilities }
+require('lspconfig').vimls.setup{ capabilities = capabilities }
+require('lspconfig').lua_ls.setup{
     settings = {
         Lua = {
             diagnostics = {
                 globals = { 'vim' }
             }
         }
-    }
+    },
+    capabilities = capabilities
 }
 
 -- Global mappings.
