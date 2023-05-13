@@ -1,17 +1,20 @@
-require('rust-tools').setup()
+local opts = {
+  tools = {
+    inlay_hints = {
+      parameter_hints_prefix = " ",
+      other_hints_prefix = " ",
+      highlight = "Comment",
+    }
+  }
+}
+require('rust-tools').setup(opts)
+
 require('rust-tools').inlay_hints.set()
 require('rust-tools').inlay_hints.enable()
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require 'lspconfig'.rust_analyzer.setup{
-  settings = {
-    ["rust-analyzer"] = {
-      cargo = {
-        allFeatures = true,
-      },
-    }
-  },
   capabilities = capabilities
 }
 
