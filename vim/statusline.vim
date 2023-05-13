@@ -16,10 +16,9 @@ function! CurrentTrackerStatus()
 endfunction
 
 set statusline=
-set statusline+=%#StatusAccent#%{CurrentTrackerStatus()}
-set statusline+=%#StatusMain#%{''}
+set statusline+=%#StatusMain#%{''}
 set statusline+=\ 
 set statusline+=%=
-set statusline+=%#StatusMain#%{''}
+set statusline+=%#StatusMain#%{''}
 set statusline+=%#StatusAccent#%{''}
-set statusline+=\ %(Selection=%{WordCount()}\ Words=%{wordcount().words}\ Bytes=%{BytesInBuffer()}\ %l,%c%V\ %=\ %P%)
+set statusline+=%(Selection=%{WordCount()}\ Words=%{wordcount().words}\ Bytes=%{BytesInBuffer()}\ %l,%c%V\ %=\ %P%)
