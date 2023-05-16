@@ -47,3 +47,7 @@ require('dap').adapters.rust = {
   command = 'rust-analyzer';
   args = { '--experimental', '--lsp' };
 }
+
+vim.keymap.set('n', '<leader>ha', function()
+  require'rust-tools.hover_actions'.hover_actions()
+end)
