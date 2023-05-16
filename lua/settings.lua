@@ -15,6 +15,8 @@ vim.opt.shiftwidth = 2  -- Number of spaces to use for each step of autoindent
 vim.opt.softtabstop = 0 -- Make it "feel" like tabs are being inserted
 vim.opt.tabstop = 2     -- Number of spaces that a <Tab> counts for
 
+vim.opt.confirm = true -- Ask for confirmation when unsaved changes are abandoned
+
 -- Usability
 vim.opt.hlsearch = true               -- Highlight search results
 vim.opt.incsearch = true              -- Show search results as you type
