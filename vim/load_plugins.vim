@@ -23,14 +23,15 @@ Plug 'preservim/tagbar'              " Browse tags ordered by scope
 Plug 'rcarriga/nvim-notify'          " Notification manager
 Plug 'sidebar-nvim/sidebar.nvim'     " Sidebar
 Plug 'sindrets/diffview.nvim'        " Diff viewer
-Plug 'tanvirtin/vgit.nvim'           " Graphical git status
 Plug 'tc50cal/vim-terminal'          " :TerminalSplit
 Plug 'ziontee113/color-picker.nvim'  " Color picker
 
 " Graphical
 Plug 'HiPhish/nvim-ts-rainbow2'            " Rainbow parentheses
+Plug 'airblade/vim-gitgutter'              " Display status of lines in the leftmost line
 Plug 'akinsho/bufferline.nvim'             " Lists the open buffers in the status line
 Plug 'jbyuki/venn.nvim'                    " Draw ASCII diagrams
+Plug 'kshenoy/vim-signature'               " Show marks in the leftmost line
 Plug 'lukas-reineke/indent-blankline.nvim' " Add indentation guides
 Plug 'nvim-tree/nvim-web-devicons'         " Icons for nvim-tree
 
