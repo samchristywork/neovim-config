@@ -60,7 +60,8 @@ Plug 'williamboman/mason-lspconfig.nvim' " Required by Mason
 Plug 'williamboman/mason.nvim'           " Package manager for managing LSP servers, DAP servers, linters, and formatters
 
 " Color schemes
-Plug 'catppuccin/nvim', { 'as': 'catppuccin' } " Color scheme
-Plug 'embark-theme/vim'                        " Color scheme
-Plug 'rebelot/kanagawa.nvim'                   " Color scheme
-Plug 'yashguptaz/calvera-dark.nvim'            " Color scheme
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }  " Color scheme
+Plug 'embark-theme/vim'                         " Color scheme
+Plug 'humanoid-colors/vim-humanoid-colorscheme' " Color scheme
+Plug 'rebelot/kanagawa.nvim'                    " Color scheme
+Plug 'yashguptaz/calvera-dark.nvim'             " Color scheme

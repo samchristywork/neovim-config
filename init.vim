@@ -21,7 +21,7 @@ call plug#begin()
 runtime vim/load_plugins.vim
 call plug#end()
 
-colorscheme catppuccin
+colorscheme humanoid
 
 runtime vim/plugin_setup.vim
 runtime vim/statusline.vim
