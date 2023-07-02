@@ -59,3 +59,8 @@ vim.api.nvim_set_keymap('x', '<leader>ml', '<Plug>(easymotion-overwin-line)', {}
 -- Move to word
 vim.api.nvim_set_keymap('n', '<leader>mw', '<Plug>(easymotion-bd-w)', {})
 vim.api.nvim_set_keymap('x', '<leader>mw', '<Plug>(easymotion-overwin-w)', {})
+
+-- Print out current date
+vim.api.nvim_set_keymap('n', '<F5>', ':read !date "+\\%Y-\\%m-\\%d"<CR>', {})
+vim.api.nvim_set_keymap('n', '<S-F5>', ':read !date "+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S"<CR>', {})
+vim.api.nvim_set_keymap('n', '<C-S-F5>', ':read !date "+\\%s"<CR>', {})
