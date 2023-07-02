@@ -1,5 +1,5 @@
 require("mason").setup()
-require("mason-lspconfig").setup({ ensure_installed = { "lua_ls", "clangd", "vimls", "bashls", "rust_analyzer", "hls", "pyright" } })
+require("mason-lspconfig").setup({ ensure_installed = { "lua_ls", "clangd", "vimls", "bashls", "rust_analyzer", "hls", "pyright", "tsserver" } })
 require("nvim-treesitter.configs").setup { ensure_installed = { "c", "cpp", "lua", "vim", "rust", "bash", "haskell", "scheme", "python" } }
 require("scrollbar").setup()
 require("bufferline").setup()
@@ -48,8 +48,11 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'buffer' },
+    -- { name = 'path' }, -- Potentially high cost
     { name = 'emoji', insert=true },
     { name = 'calc' },
+    -- { name = 'conventionalcommits' },
+    -- { name = 'nerdfont' },
     -- { name = 'dictionary' },
     -- { name = 'digraphs' },
   },
@@ -94,6 +97,7 @@ vim.api.nvim_set_keymap('n', '<leader>V', ":lua Toggle_venn()<CR>", { noremap = 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require('lspconfig').clangd.setup{ capabilities = capabilities }
+require('lspconfig').tsserver.setup{ capabilities = capabilities }
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

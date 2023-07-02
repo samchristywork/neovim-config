@@ -14,8 +14,12 @@ require('rust-tools').inlay_hints.enable()
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-require 'lspconfig'.rust_analyzer.setup{
-  capabilities = capabilities
+require('lspconfig').rust_analyzer.setup{
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    require('lsp').on_attach(client, bufnr)
+  end,
+  cmd = { "rustup", "run", "stable", "rust-analyzer" },
 }
 
 require('dap').configurations.rust = {
@@ -49,5 +53,5 @@ require('dap').adapters.rust = {
 }
 
 vim.keymap.set('n', '<leader>ha', function()
-  require'rust-tools.hover_actions'.hover_actions()
+  require('rust-tools.hover_actions').hover_actions()
 end)

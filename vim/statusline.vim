@@ -11,7 +11,7 @@ function! WordCount()
 endfunction
 
 function! CurrentTrackerStatus()
-  let l:output = system('cat ~/time_tracker/current_category')
+  let l:output = system('cat ~/rofi_time_tracker/current_category')
   return l:output
 endfunction
 
