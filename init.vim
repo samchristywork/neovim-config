@@ -17,9 +17,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " ## Plugins
 " Remember to :checkhealth every once in a while
-call plug#begin()
-runtime vim/load_plugins.vim
-call plug#end()
+lua require('lazy_setup')
 
 colorscheme humanoid
 
