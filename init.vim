@@ -25,19 +25,19 @@ runtime vim/plugin_setup.vim
 runtime vim/statusline.vim
 runtime vim/util.vim
 
-lua require('git')
+lua require('core/git')
+lua require('core/movement')
+lua require('core/settings')
 lua require('keybindings')
 lua require('mappings')
-lua require('movement')
 lua require('plugin_setup')
 lua require('rust')
-lua require('settings')
 lua require('sidebars')
 lua require('snippets')
 lua require('telescope')
 
 " Must be after settings
-lua require('highlight')
+lua require('core/highlight')
 
 execute "digraphs as " . 0x2090
 execute "digraphs es " . 0x2091
