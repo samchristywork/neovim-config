@@ -6,6 +6,17 @@ vim.keymap.set('v', '<leader>s', function()
 end)
 
 vim.keymap.set('n', '<leader>r', function()
-  -- You could also replace "ls" with "grep -riP .", but the sink would also have to change to extract the filename
-  vim.cmd(":call fzf#run({'dir': '~/snippets', 'source': 'ls', 'sink': 'read', 'options': ['--layout=reverse', '--info=inline', '--preview', 'bat --color always {}'], 'window': {'width': 0.9, 'height': 0.6}})")
+  require('telescope.builtin').find_files({
+    prompt_title = '< Insert Filename >',
+    cwd = '~/snippets',
+    attach_mappings = function(prompt_bufnr, map)
+      map('i', '<CR>', function()
+        local filename = require('telescope.actions.state').get_selected_entry()
+        require('telescope.actions').close(prompt_bufnr)
+
+        vim.cmd(':r ~/snippets/'..filename.value)
+      end)
+      return true
+    end,
+  })
 end)
