@@ -21,14 +21,10 @@ lua require('lazy_setup')
 
 colorscheme humanoid
 
-runtime vim/plugin_setup.vim
-runtime vim/statusline.vim
-runtime vim/util.vim
-
 lua require('core/git')
+lua require('core/keybindings')
 lua require('core/movement')
 lua require('core/settings')
-lua require('keybindings')
 lua require('mappings')
 lua require('plugin_setup')
 lua require('rust')

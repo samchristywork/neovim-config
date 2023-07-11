@@ -79,8 +79,10 @@ vim.api.nvim_set_keymap('n', '<F5>', ':read !date "+\\%Y-\\%m-\\%d"<CR>', {})
 vim.api.nvim_set_keymap('n', '<S-F5>', ':read !date "+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S"<CR>', {})
 vim.api.nvim_set_keymap('n', '<C-S-F5>', ':read !date "+\\%s"<CR>', {})
 
+-- Buffer management
 vim.api.nvim_set_keymap('n', '<leader>bo', ':%bd|e#|bn|bd<cr>', {desc = "Close all buffers except current one"})
 vim.api.nvim_set_keymap('n', '<leader>bd', ':bd<cr>', {desc = "Close current buffer"})
 
+-- Open current file in Firefox
 vim.api.nvim_set_keymap('n', '<leader>o', ':!firefox %<cr>', {desc = "Open current file in Firefox"})
 vim.api.nvim_set_keymap('n', '<leader>O', ':!firefox --new-window %<cr>', {desc = "Open current file in Firefox in a new window"})
