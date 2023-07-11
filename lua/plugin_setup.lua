@@ -1,6 +1,6 @@
 require("mason").setup()
-require("mason-lspconfig").setup({ ensure_installed = { "lua_ls", "clangd", "vimls", "bashls", "rust_analyzer", "hls", "pyright", "tsserver" } })
-require("nvim-treesitter.configs").setup { ensure_installed = { "c", "cpp", "lua", "vim", "rust", "bash", "haskell", "scheme", "python" } }
+require("mason-lspconfig").setup({ ensure_installed = { "lua_ls", "clangd", "vimls", "bashls", "rust_analyzer", "hls", "pyright", "tsserver", "gopls" } })
+require("nvim-treesitter.configs").setup { ensure_installed = { "c", "cpp", "lua", "vim", "rust", "bash", "haskell", "scheme", "python", "go" } }
 require("scrollbar").setup()
 require("bufferline").setup()
 require("messages").setup()
@@ -98,6 +98,19 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require('lspconfig').clangd.setup{ capabilities = capabilities }
 require('lspconfig').tsserver.setup{ capabilities = capabilities }
+require('lspconfig').gopls.setup{ capabilities = capabilities }
+require('lspconfig').bashls.setup{ capabilities = capabilities }
+require('lspconfig').vimls.setup{ capabilities = capabilities }
+require('lspconfig').lua_ls.setup{
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            }
+        }
+    },
+    capabilities = capabilities
+}
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
