@@ -8,6 +8,20 @@ vim.keymap.set('n', '<leader>ff', ':Telescope find_files<cr>',                  
 vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<cr>',                     {desc = "Search for text"})
 vim.keymap.set('n', '<leader>fh', ':Telescope help_tags<cr>',                     {desc = "Search for help tags"})
 
+vim.keymap.set('n', '<leader>fn', function()
+  require('telescope.builtin').find_files({
+    find_command = {'rg', '--files', '--iglob', '!.git', '--hidden', '--glob', '!.git/*'},
+    attach_mappings = function(_, map)
+      map('i', '<CR>', function(prompt_bufnr)
+        local entry = require('telescope.actions.state').get_selected_entry()
+        require('telescope.actions').close(prompt_bufnr)
+        vim.api.nvim_put({entry.value}, '', true, true)
+      end)
+      return true
+    end,
+  })
+end, {desc = "Insert filename under cursor"})
+
 vim.keymap.set('n', '<leader>fc', function()
   vim.cmd(':Telescope colorscheme');
 end, {desc = "Search for colorschemes"})

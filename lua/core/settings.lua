@@ -40,3 +40,4 @@ vim.g.tagbar_show_tag_linenumbers = 2                           -- Show line num
 vim.g.tagbar_sort = 0                                           -- Sort tagbar by tag name
 vim.g.html_number_lines = 0                                     -- Disable line numbers in :TOhtml output
 vim.g.html_use_css = 0                                          -- Use inline css instead of style tag for :TOhtml
+vim.wo.signcolumn = 'yes'                                       -- Always show sign column
