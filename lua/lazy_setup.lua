@@ -28,7 +28,6 @@ require("lazy").setup({
 'ap/vim-css-color',               -- Preview CSS colors
 'junegunn/fzf.vim',               -- Fuzzy finding
 'mbbill/undotree',                -- Visual management of undo history
-'mhinz/vim-startify',             -- Start screen
 'nvim-telescope/telescope.nvim',  -- Opens search windows for files and strings
 'nvim-tree/nvim-tree.lua',        -- File browser
 'petertriho/nvim-scrollbar',      -- Adds a scrollbar on the right side of the main window

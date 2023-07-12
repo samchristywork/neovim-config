@@ -98,3 +98,33 @@ execute "digraphs TS " . 0x1D40
 execute "digraphs US " . 0x1D41
 execute "digraphs VS " . 0x2C7D
 execute "digraphs WS " . 0x1D42
+
+function! BytesInBuffer()
+  return line2byte(line('$') + 1)
+endfunction
+
+function! WordCount()
+  let a='N/A'
+  if has_key(wordcount(), 'visual_words')
+    let a=wordcount().visual_words
+  endif
+  return a
+endfunction
+
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+  nnoremap <leader>v :set cursorline! cursorcolumn!<CR>
+
+  " Highlight current line and set mark l so that you can go back to it with 'l
+  nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
+augroup END
+
+set statusline=
+set statusline+=%#StatusMain#%{''}
+set statusline+=\ 
+set statusline+=%=
+set statusline+=%#StatusMain#%{''}
+set statusline+=%#StatusAccent#%{''}
+set statusline+=%(Selection=%{WordCount()}\ Words=%{wordcount().words}\ Bytes=%{BytesInBuffer()}\ %l,%c%V\ %=\ %P%)
