@@ -41,6 +41,8 @@ vim.keymap.set('v', '<leader>C', ':TOhtml<cr>/vimCodeElement<cr>V/<\\/pre><cr>"*
 vim.keymap.set('n', '<c-d>',     '<c-d>zz',                                                {desc = "Scroll down half a page"})
 vim.keymap.set('n', '<c-u>',     '<c-u>zz',                                                {desc = "Scroll up half a page"})
 
+  vim.keymap.set('n', '<F4>', ':make run<cr>', {desc = "Run make"})
+
 -- Bindings for C/C++
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
   pattern = {"*.c", "*.cpp"},
