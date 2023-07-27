@@ -36,7 +36,24 @@ function HighlightSyntax()
   vim.cmd([[highlight FlashPattern guifg=orange]])
 end
 
-vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter", "VimEnter", "BufRead", "BufNewFile"}, {
+local function openLink()
+  local line = vim.fn.getline('.')
+
+  local localLink = string.match(line, '%[(.*)%]')
+  local firefoxLink = string.match(line, '<(.*)>')
+
+  if (firefoxLink) then
+    vim.cmd([[execute ":!firefox " . "']] .. firefoxLink .. [['"]])
+    return
+  end
+
+  if (localLink) then
+    local linkName = localLink .. '.dm'
+    vim.cmd([[execute ":edit " . "]] .. linkName .. [["]])
+  end
+end
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "VimEnter", "BufRead", "BufNewFile" }, {
   pattern = {
     "*/vault/*.dm",
     "*/vaults/*/*.dm"
