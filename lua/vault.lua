@@ -1,3 +1,6 @@
+local currentNamespace = vim.api.nvim_create_namespace("lint")
+local currentBuf = vim.api.nvim_get_current_buf()
+
 function HighlightSyntax()
   vim.fn.matchadd("HeadingPattern", [[\v^#+ .*]])
   vim.cmd([[highlight HeadingPattern guifg=#e69999]])
@@ -129,3 +132,40 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter", "VimEnter", "BufRead", "
     end)
   end,
 })
+
+vim.api.nvim_create_autocmd(
+  { "TextChanged", "TextChangedI", "BufEnter", "BufWinEnter", "VimEnter", "BufRead", "BufNewFile" }, {
+    pattern = {
+      "*/vault/*.dm",
+      "*/vaults/*/*.dm"
+    },
+    callback = function()
+      vim.diagnostic.reset(currentNamespace, currentBuf)
+
+      if (not string.match(vim.fn.getline(1), '#')) then
+        vim.diagnostic.set(currentNamespace, currentBuf, { {
+          bufnr = currentBuf,
+          lnum = 0,
+          end_lnum = 0,
+          col = 1,
+          end_col = 1,
+          severity = vim.diagnostic.severity.ERROR,
+          message = 'Missing title',
+          source = 'test'
+        } })
+      end
+
+      if (not string.match(vim.fn.getline(2), '%-%-')) then
+        vim.diagnostic.set(currentNamespace, currentBuf, { {
+          bufnr = currentBuf,
+          lnum = 1,
+          end_lnum = 1,
+          col = 1,
+          end_col = 1,
+          severity = vim.diagnostic.severity.ERROR,
+          message = 'Missing frontmatter',
+          source = 'test'
+        } })
+      end
+    end,
+  })
