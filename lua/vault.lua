@@ -2,6 +2,7 @@ local currentNamespace = vim.api.nvim_create_namespace("lint")
 local currentBuf = vim.api.nvim_get_current_buf()
 
 function HighlightSyntax()
+  vim.cmd([[set syntax=]])
   vim.fn.matchadd("HeadingPattern", [[\v^#+ .*]])
   vim.cmd([[highlight HeadingPattern guifg=#e69999]])
 
@@ -25,15 +26,22 @@ function HighlightSyntax()
   vim.cmd([[syntax region TaggedLinkPattern matchgroup=Conceal start=/\[.\+\](/ end=/)/ concealends contains=@NoSpell]])
   vim.cmd([[highlight TaggedLinkPattern guifg=orange]])
 
+  vim.cmd([[syntax region AngleBracketsContents matchgroup=Conceal start=/</ end=/>/ concealends contains=@NoSpell]])
+  vim.cmd([[highlight AngleBracketsContents guifg=blue]])
+
   vim.cmd([[highlight Conceal ctermbg=none]])
   vim.cmd([[set conceallevel=2]])
-  vim.cmd([[set concealcursor=nvic]])
+  vim.cmd([[set concealcursor=]])
 
-  vim.cmd([[syntax region SemanticProsePattern matchgroup=Conceal start=/{/ end=/}/ concealends contains=@NoSpell]])
-  vim.cmd([[highlight SemanticProsePattern guifg=orange]])
 
   vim.cmd([[syntax match FlashPattern "\#flash|"hs=e-6 conceal cchar=🌟]])
   vim.cmd([[highlight FlashPattern guifg=orange]])
+
+  vim.cmd([[syntax region CodeContents start=/```/ end=/```/ contains=@NoSpell]])
+  vim.cmd([[highlight CodeContents guifg=limegreen]])
+
+  vim.cmd([[syntax region FrontMatterContents start=/--/ end=/--/ contains=@NoSpell]])
+  vim.cmd([[highlight FrontMatterContents guifg=limegreen]])
 end
 
 local function openLink()
