@@ -42,6 +42,25 @@ function HighlightSyntax()
 
   vim.cmd([[syntax region FrontMatterContents start=/--/ end=/--/ contains=@NoSpell]])
   vim.cmd([[highlight FrontMatterContents guifg=limegreen]])
+
+  local colors = {
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "blue",
+    "purple",
+    "magenta",
+    "cyan",
+    "white",
+    "black",
+  }
+
+  for i, color in ipairs(colors) do
+    vim.cmd([[syntax region ]] ..
+      color .. [[Pattern matchgroup=Conceal start=/{]] .. color .. [[ / end=/}/ concealends contains=@NoSpell]])
+    vim.cmd([[highlight ]] .. color .. [[Pattern guifg=]] .. color)
+  end
 end
 
 local function openLink()
