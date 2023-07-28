@@ -149,6 +149,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 
 require("color-picker").setup({ -- for changing icons & mappings
   -- ["icons"] = { "ﱢ", "" },
