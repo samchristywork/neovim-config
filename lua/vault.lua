@@ -90,13 +90,10 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "VimEnter", "BufRead", 
     vim.cmd([[set spell]])
 
     vim.keymap.set('n', '<return>', function()
-      vim.cmd([[normal! wF["byi[]])
-      vim.cmd([[execute ":edit " . @b . ".dm"]])
+      openLink()
     end)
 
     vim.keymap.set('n', '<leader><return>', function()
-      vim.cmd([[normal! wF["byi[]])
-      vim.cmd([[execute ":!firefox " . @b]])
     end)
 
     vim.keymap.set('n', '<leader>v', function()
@@ -119,7 +116,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "VimEnter", "BufRead", 
               filename.value = string.sub(filename.value, 1, -4)
               filename.value = '[' .. filename.value .. ']'
 
-              vim.api.nvim_put({filename.value}, 'l', true, true)
+              vim.api.nvim_put({ filename.value }, 'l', true, true)
             end
           end)
           return true
