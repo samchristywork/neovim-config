@@ -227,6 +227,8 @@ vim.api.nvim_create_autocmd(
       "*/vault/*.dm",
     },
     callback = function()
+      vim.diagnostic.reset(currentNamespace, currentBuf)
+
       for lnum = 1, vim.fn.line('$') do
         local line = vim.fn.getline(lnum)
         local localLink = string.match(line, '%[(.*)%]')
