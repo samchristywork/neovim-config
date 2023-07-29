@@ -220,3 +220,31 @@ function file_exists(name)
     return false
   end
 end
+
+vim.api.nvim_create_autocmd(
+  { "TextChanged", "TextChangedI", "BufEnter", "BufWinEnter", "VimEnter", "BufRead", "BufNewFile" }, {
+    pattern = {
+      "*/vault/*.dm",
+    },
+    callback = function()
+      for lnum = 1, vim.fn.line('$') do
+        local line = vim.fn.getline(lnum)
+        local localLink = string.match(line, '%[(.*)%]')
+        if localLink then
+          if not file_exists(localLink .. ".dm") then
+            vim.diagnostic.set(currentNamespace, currentBuf, {
+              {
+                bufnr = currentBuf,
+                lnum = lnum - 1,
+                end_lnum = lnum - 1,
+                col = 1,
+                end_col = 1,
+                severity = vim.diagnostic.severity.INFO,
+                message = "Link does not exist.",
+                source = 'test'
+              }})
+          end
+        end
+      end
+    end,
+  })
