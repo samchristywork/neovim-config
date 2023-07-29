@@ -174,43 +174,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "VimEnter", "BufRead", 
   end,
 })
 
-vim.api.nvim_create_autocmd(
-  { "TextChanged", "TextChangedI", "BufEnter", "BufWinEnter", "VimEnter", "BufRead", "BufNewFile" }, {
-    pattern = {
-      "*/vault/*.dm",
-      "*/vaults/*/*.dm"
-    },
-    callback = function()
-      vim.diagnostic.reset(currentNamespace, currentBuf)
-
-      if (not string.match(vim.fn.getline(1), '#')) then
-        vim.diagnostic.set(currentNamespace, currentBuf, { {
-          bufnr = currentBuf,
-          lnum = 0,
-          end_lnum = 0,
-          col = 1,
-          end_col = 1,
-          severity = vim.diagnostic.severity.ERROR,
-          message = 'Missing title',
-          source = 'test'
-        } })
-      end
-
-      if (not string.match(vim.fn.getline(2), '%-%-')) then
-        vim.diagnostic.set(currentNamespace, currentBuf, { {
-          bufnr = currentBuf,
-          lnum = 1,
-          end_lnum = 1,
-          col = 1,
-          end_col = 1,
-          severity = vim.diagnostic.severity.ERROR,
-          message = 'Missing frontmatter',
-          source = 'test'
-        } })
-      end
-    end,
-  })
-
 function file_exists(name)
   local f = io.open(name, "r")
   if f ~= nil then
@@ -230,6 +193,34 @@ vim.api.nvim_create_autocmd(
       vim.diagnostic.reset(currentNamespace, currentBuf)
 
       local diagnostics = {}
+
+      if (not string.match(vim.fn.getline(1), '#')) then
+        table.insert(diagnostics,
+          {
+            bufnr = currentBuf,
+            lnum = 0,
+            end_lnum = 0,
+            col = 1,
+            end_col = 1,
+            severity = vim.diagnostic.severity.ERROR,
+            message = 'Missing title',
+            source = 'test'
+          })
+      end
+
+      if (not string.match(vim.fn.getline(2), '%-%-')) then
+        table.insert(diagnostics,
+          {
+            bufnr = currentBuf,
+            lnum = 1,
+            end_lnum = 1,
+            col = 1,
+            end_col = 1,
+            severity = vim.diagnostic.severity.ERROR,
+            message = 'Missing frontmatter',
+            source = 'test'
+          })
+      end
 
       for lnum = 1, vim.fn.line('$') do
         local line = vim.fn.getline(lnum)
