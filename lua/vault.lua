@@ -229,12 +229,14 @@ vim.api.nvim_create_autocmd(
     callback = function()
       vim.diagnostic.reset(currentNamespace, currentBuf)
 
+      local diagnostics = {}
+
       for lnum = 1, vim.fn.line('$') do
         local line = vim.fn.getline(lnum)
         local localLink = string.match(line, '%[(.*)%]')
         if localLink then
           if not file_exists(localLink .. ".dm") then
-            vim.diagnostic.set(currentNamespace, currentBuf, {
+            table.insert(diagnostics,
               {
                 bufnr = currentBuf,
                 lnum = lnum - 1,
@@ -244,9 +246,10 @@ vim.api.nvim_create_autocmd(
                 severity = vim.diagnostic.severity.INFO,
                 message = "Link does not exist.",
                 source = 'test'
-              }})
+              })
           end
         end
       end
+      vim.diagnostic.set(currentNamespace, currentBuf, diagnostics)
     end,
   })
