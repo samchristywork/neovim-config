@@ -1,5 +1,4 @@
 local currentNamespace = vim.api.nvim_create_namespace("lint")
-local currentBuf = vim.api.nvim_get_current_buf()
 
 function HighlightSyntax()
   vim.cmd([[set syntax=]])
@@ -32,7 +31,6 @@ function HighlightSyntax()
   vim.cmd([[highlight Conceal ctermbg=none]])
   vim.cmd([[set conceallevel=2]])
   vim.cmd([[set concealcursor=]])
-
 
   vim.cmd([[syntax match FlashPattern "\#flash|"hs=e-6 conceal cchar=🌟]])
   vim.cmd([[highlight FlashPattern guifg=orange]])
@@ -91,9 +89,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "VimEnter", "BufRead", 
 
     vim.keymap.set('n', '<return>', function()
       openLink()
-    end)
-
-    vim.keymap.set('n', '<leader><return>', function()
     end)
 
     vim.keymap.set('n', '<leader>v', function()
@@ -174,7 +169,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "VimEnter", "BufRead", 
   end,
 })
 
-function file_exists(name)
+local function file_exists(name)
   local f = io.open(name, "r")
   if f ~= nil then
     io.close(f)
@@ -185,11 +180,12 @@ function file_exists(name)
 end
 
 vim.api.nvim_create_autocmd(
-  { "TextChanged", "TextChangedI", "BufEnter", "BufWinEnter", "VimEnter", "BufRead", "BufNewFile" }, {
+  { "BufAdd", "TextChanged", "TextChangedI", "BufEnter", "BufWinEnter", "VimEnter", "BufRead", "BufNewFile" }, {
     pattern = {
       "*/vault/*.dm",
     },
     callback = function()
+      local currentBuf = vim.api.nvim_get_current_buf()
       vim.diagnostic.reset(currentNamespace, currentBuf)
 
       local diagnostics = {}
