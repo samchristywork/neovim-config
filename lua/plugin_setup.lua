@@ -1,6 +1,9 @@
 require("mason").setup()
-require("mason-lspconfig").setup({ ensure_installed = { "lua_ls", "clangd", "vimls", "bashls", "rust_analyzer", "hls", "pyright", "tsserver", "gopls" } })
-require("nvim-treesitter.configs").setup { ensure_installed = { "c", "cpp", "lua", "vim", "rust", "bash", "haskell", "scheme", "python", "go" } }
+require("mason-lspconfig").setup({
+  ensure_installed = { "lua_ls", "clangd", "vimls", "bashls", "rust_analyzer", "hls", "pyright", "tsserver", "gopls" }
+})
+require("nvim-treesitter.configs").setup { ensure_installed = { "c", "cpp", "lua", "vim", "rust", "bash", "haskell",
+  "scheme", "python", "go" } }
 require("scrollbar").setup()
 require("bufferline").setup()
 require("messages").setup()
@@ -18,7 +21,7 @@ cmp.setup {
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
-    ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
+    ['<C-d>'] = cmp.mapping.scroll_docs(4),  -- Down
     -- C-b (back) C-f (forward) for snippet placeholder navigation.
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<Tab>'] = cmp.mapping.confirm {
@@ -49,10 +52,10 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'buffer' },
     -- { name = 'path' }, -- Potentially high cost
-    { name = 'emoji', insert=true },
+    { name = 'emoji',   insert = true },
     { name = 'calc' },
     -- { name = 'conventionalcommits' },
-    -- { name = 'nerdfont' },
+    { name = 'nerdfont' },
     -- { name = 'dictionary' },
     -- { name = 'digraphs' },
   },
@@ -75,41 +78,43 @@ function _G.Toggle_venn()
   local venn_enabled = vim.inspect(vim.b.venn_enabled)
   if venn_enabled == "nil" then
     vim.b.venn_enabled = true
-    vim.cmd[[setlocal ve=all]]
+    vim.cmd [[setlocal ve=all]]
 
     -- draw a line on HJKL keystokes
-    vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<CR>", {noremap = true})
-    vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<CR>", {noremap = true})
-    vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<CR>", {noremap = true})
-    vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<CR>", {noremap = true})
+    vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<CR>", { noremap = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<CR>", { noremap = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<CR>", { noremap = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<CR>", { noremap = true })
 
     -- draw a box by pressing "f" with visual selection
-    vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<CR>", {noremap = true})
+    vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<CR>", { noremap = true })
   else
-    vim.cmd[[setlocal ve=]]
-    vim.cmd[[mapclear <buffer>]]
+    vim.cmd [[setlocal ve=]]
+    vim.cmd [[mapclear <buffer>]]
     vim.b.venn_enabled = nil
   end
 end
+
 -- toggle keymappings for venn using <leader>v
-vim.api.nvim_set_keymap('n', '<leader>V', ":lua Toggle_venn()<CR>", { noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>V', ":lua Toggle_venn()<CR>", { noremap = true })
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-require('lspconfig').clangd.setup{ capabilities = capabilities }
-require('lspconfig').tsserver.setup{ capabilities = capabilities }
-require('lspconfig').gopls.setup{ capabilities = capabilities }
-require('lspconfig').bashls.setup{ capabilities = capabilities }
-require('lspconfig').vimls.setup{ capabilities = capabilities }
-require('lspconfig').lua_ls.setup{
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    },
-    capabilities = capabilities
+require('lspconfig').html.setup { capabilities = capabilities }
+require('lspconfig').clangd.setup { capabilities = capabilities }
+require('lspconfig').tsserver.setup { capabilities = capabilities }
+require('lspconfig').gopls.setup { capabilities = capabilities }
+require('lspconfig').bashls.setup { capabilities = capabilities }
+require('lspconfig').vimls.setup { capabilities = capabilities }
+require('lspconfig').lua_ls.setup {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' }
+      }
+    }
+  },
+  capabilities = capabilities
 }
 
 -- Global mappings.
@@ -151,7 +156,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 
-require("color-picker").setup({ -- for changing icons & mappings
+require("color-picker").setup({
+  -- for changing icons & mappings
   -- ["icons"] = { "ﱢ", "" },
   -- ["icons"] = { "ﮊ", "" },
   -- ["icons"] = { "", "ﰕ" },
@@ -159,13 +165,13 @@ require("color-picker").setup({ -- for changing icons & mappings
   -- ["icons"] = { "", "" },
   ["icons"] = { "ﱢ", "" },
   ["border"] = "rounded", -- none | single | double | rounded | solid | shadow
-  ["keymap"] = { -- mapping example:
+  ["keymap"] = {          -- mapping example:
     ["U"] = "<Plug>ColorPickerSlider5Decrease",
     ["O"] = "<Plug>ColorPickerSlider5Increase",
   },
-  ["background_highlight_group"] = "Normal", -- default
+  ["background_highlight_group"] = "Normal",  -- default
   ["border_highlight_group"] = "FloatBorder", -- default
-  ["text_highlight_group"] = "Normal", --default
+  ["text_highlight_group"] = "Normal",        --default
 })
 
 local opts = { noremap = true, silent = true }
