@@ -8,6 +8,7 @@ vim.keymap.set('n', '<leader>fb', ':Telescope builtin<cr>', { desc = "Search for
 vim.keymap.set('n', '<leader>ff', ':Telescope find_files<cr>', { desc = "Search for files" })
 vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<cr>', { desc = "Search for text" })
 vim.keymap.set('n', '<leader>fh', ':Telescope help_tags<cr>', { desc = "Search for help tags" })
+vim.keymap.set('n', '<leader>ft', ':Telescope<cr>', { desc = "Search for everything" })
 
 vim.keymap.set('n', '<leader>fn', function()
   require('telescope.builtin').find_files({
@@ -23,6 +24,21 @@ vim.keymap.set('n', '<leader>fn', function()
   })
 end, { desc = "Insert filename under cursor" })
 
+vim.keymap.set('n', '<leader>fj', function()
+  require('telescope.builtin').find_files({
+    find_command = { 'git', 'ls-files' },
+    -- open file in a new buffer
+    attach_mappings = function(_, map)
+      map('i', '<CR>', function(prompt_bufnr)
+        local entry = require('telescope.actions.state').get_selected_entry()
+        require('telescope.actions').close(prompt_bufnr)
+        vim.cmd('e ' .. entry.value)
+      end)
+      return true
+    end,
+  })
+end, { desc = "Search for Git files and open" })
+
 vim.keymap.set('n', '<leader>fc', function()
   vim.cmd(':Telescope colorscheme');
 end, { desc = "Search for colorschemes" })
@@ -34,16 +50,13 @@ end, { desc = "Reset background to be transparent" })
 -- Miscellanous
 vim.keymap.set('n', '<F6>', ':DiffviewFileHistory %<cr>', { desc = "Open file history" })
 vim.keymap.set('n', '<leader>D', 'yy@"', { desc = "Run VimScript on current line" })
-vim.keymap.set('n', '<leader>u', '<c-w>n<c-w>L:term sc-im<cr>:set nonu<cr>',
-  { desc = "Open a terminal with sc-im in a new window" })
+vim.keymap.set('n', '<leader>u', '<c-w>n<c-w>L:term sc-im<cr>:set nonu<cr>', { desc = "Open a terminal with sc-im" })
 vim.keymap.set('n', 'n', 'nzz', { desc = "Auto-center when searching for matches" })
 vim.keymap.set('n', 's', ':w<cr>', { desc = "Save using s" })
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = "Exit terminal insert mode using escape" })
-vim.keymap.set('v', '<leader>C', ':TOhtml<cr>/vimCodeElement<cr>V/<\\/pre><cr>"*y:q!<cr>',
-  { desc = "Copy syntax-highlighted text to HTML" })
+vim.keymap.set('v', '<leader>C', ':TOhtml<cr>/vimCodeElement<cr>V/<\\/pre><cr>"*y:q!<cr>', { desc = "Copy code to HTML" })
 vim.keymap.set('n', '<c-d>', '<c-d>zz', { desc = "Scroll down half a page" })
 vim.keymap.set('n', '<c-u>', '<c-u>zz', { desc = "Scroll up half a page" })
-
 vim.keymap.set('n', '<F4>', ':make run<cr>', { desc = "Run make" })
 
 -- Bindings for C/C++

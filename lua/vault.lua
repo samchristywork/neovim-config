@@ -152,6 +152,12 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "VimEnter", "BufRead", 
       -- copy ~/snippets/mermaid.html to /tmp/mermaid.html
       local filename = '/home/sam/snippets/mermaid.html'
       local file = io.open(filename, 'r')
+
+      if file == nil then
+        print('file not found: ' .. filename)
+        return
+      end
+
       local contents = file:read('*a')
       file:close()
 
@@ -160,8 +166,14 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "VimEnter", "BufRead", 
 
       contents = string.gsub(contents, "INSERT_HERE", selection)
 
-      local filename = '/tmp/mermaid.html'
-      local file = io.open(filename, 'w')
+      filename = '/tmp/mermaid.html'
+      file = io.open(filename, 'w')
+
+      if file == nil then
+        print('file not found: ' .. filename)
+        return
+      end
+
       file:write(contents)
       file:close()
       vim.cmd([[:!firefox --new-window /tmp/mermaid.html]])
