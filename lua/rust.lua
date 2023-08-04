@@ -14,7 +14,7 @@ require('rust-tools').inlay_hints.enable()
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-require('lspconfig').rust_analyzer.setup{
+require('lspconfig').rust_analyzer.setup {
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     require('lsp').on_attach(client, bufnr)
@@ -37,19 +37,19 @@ require('dap').configurations.rust = {
 
 require('dap').configurations.rust = {
   {
-    type = 'rust';
-    request = 'launch';
-    name = 'Debug';
-    program = '${file}';
-    cwd = vim.fn.getcwd();
-    args = {};
+    type = 'rust',
+    request = 'launch',
+    name = 'Debug',
+    program = '${file}',
+    cwd = vim.fn.getcwd(),
+    args = {},
   },
 }
 
 require('dap').adapters.rust = {
-  type = 'executable';
-  command = 'rust-analyzer';
-  args = { '--experimental', '--lsp' };
+  type = 'executable',
+  command = 'rust-analyzer',
+  args = { '--experimental', '--lsp' },
 }
 
 vim.keymap.set('n', '<leader>ha', function()
