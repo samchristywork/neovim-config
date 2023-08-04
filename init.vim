@@ -17,7 +17,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " ## Plugins
 " Remember to :checkhealth every once in a while
-lua require('lazy_setup')
+lua require('core/lazy_setup')
 
 colorscheme humanoid
 
