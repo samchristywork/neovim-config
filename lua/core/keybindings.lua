@@ -105,3 +105,11 @@ vim.api.nvim_set_keymap('n', '<leader>bd', ':bd<cr>', { desc = "Close current bu
 vim.api.nvim_set_keymap('n', '<leader>o', ':!firefox %<cr>', { desc = "Open current file in Firefox" })
 vim.api.nvim_set_keymap('n', '<leader>O', ':!firefox --new-window %<cr>',
   { desc = "Open current file in Firefox in a new window" })
+
+vim.keymap.set('n', '<leader>s', function()
+  local search_string = vim.fn.input("Enter search string: ")
+  local cmd = string.format(":vimgrep /%s/ `git ls-files`", search_string)
+  vim.cmd(cmd)
+  vim.cmd('copen')
+  vim.cmd('wincmd L')
+end, { desc = "TODO" })
