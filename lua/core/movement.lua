@@ -3,6 +3,8 @@ vim.keymap.set('', 'J', '5j')
 vim.keymap.set('', 'K', '5k')
 vim.keymap.set('', 'H', '10h')
 vim.keymap.set('', 'L', '10l')
+vim.keymap.set('', '<c-n>', ':cnext<cr>')
+vim.keymap.set('', '<c-p>', ':cprevious<cr>')
 
 -- Move between buffers
 vim.keymap.set('n', 'e', ':bn<cr>')
