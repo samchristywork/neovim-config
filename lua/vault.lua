@@ -138,9 +138,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "VimEnter", "BufRead", 
       })
     end)
 
-    vim.keymap.set('n', '<leader><leader>', function()
-      vim.cmd([[execute ":silent !/home/sam/renumber/wrapper " . expand("%")]])
-    end)
 
     vim.keymap.set('n', '<leader>s', function()
       vim.cmd([[lua HighlightSyntax()]])
