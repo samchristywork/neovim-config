@@ -48,6 +48,20 @@ local function commands_picker()
   }):find()
 end
 
+vim.api.nvim_create_user_command('ListCommands', commands_picker, {})
+
+vim.api.nvim_set_keymap('n', '<leader><leader>', ':ListCommands<CR>', { noremap = true, silent = true })
+
+vim.cmd('copen')
+vim.cmd('wincmd L')
+vim.cmd('vertical resize 40')
+
+vim.api.nvim_create_autocmd("QuitPre", {
+  callback = function()
+    vim.cmd('cclose')
+  end,
+})
+
 -- Function to populate the quickfix list with lines not starting with whitespace
 local function populate_quickfix_non_whitespace()
   local bufnr = vim.api.nvim_get_current_buf()
