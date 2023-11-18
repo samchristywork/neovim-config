@@ -5,6 +5,15 @@ local conf = require('telescope.config').values
 
 local function commands_picker()
   local commands = {
+    { value = "GitGutter",         ordinal = "GitGutter",         display = "GitGutter" },
+    { value = "cclose",            ordinal = "cclose",            display = "cclose" },
+    { value = "norm yyp",          ordinal = "norm yyp",          display = "norm yyp" },
+    { value = "GitGutterNextHunk", ordinal = "GitGutterNextHunk", display = "GitGutterNextHunk" },
+    {
+      value = "TSTextobjectGotoNextStart @function.outer",
+      ordinal = "TSTextobjectGotoNextStart @function.outer",
+      display = "TSTextobjectGotoNextStart @function.outer"
+    },
   }
 
   pickers.new({}, {
