@@ -14,28 +14,26 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " ## Plugins
 " Remember to :checkhealth every once in a while
-lua require('core/lazy_setup')
+lua require('lazy_setup')
 
 colorscheme humanoid
 
 lua << EOF
-require('autocommands') -- Do not track
-require('vault') -- Do not track
-require('core/git')
-require('core/keybindings')
-require('core/movement')
-require('core/settings')
 require('custom_commands')
-require('mappings')
 require('diagnostics')
+require('git')
+require('go')
+require('keybindings')
+require('mappings')
+require('movement')
 require('plugin_setup')
 require('rust')
---lua require('sidebars')
+require('settings')
 require('snippets')
 require('telescope')
 
 --Must be after settings
-require('core/highlight')
+require('highlight')
 EOF
 
 vnoremap m :'<,'>!xclip -i; xclip -o;/home/sam/tts/tts_command<CR>
