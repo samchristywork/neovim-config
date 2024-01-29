@@ -12,56 +12,30 @@ autocmd BufReadPost *
 set formatoptions-=cro
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" ## Misc
-:cnoreabbrev h vert h
-
 " ## Plugins
 " Remember to :checkhealth every once in a while
 lua require('core/lazy_setup')
 
 colorscheme humanoid
 
-lua require('core/git')
-lua require('core/keybindings')
-lua require('core/movement')
-lua require('core/settings')
-lua require('custom_commands')
-lua require('mappings')
-lua require('plugin_setup')
-lua require('rust')
-lua require('sidebars')
-lua require('snippets')
-lua require('telescope')
+lua << EOF
+require('autocommands') -- Do not track
+require('vault') -- Do not track
+require('core/git')
+require('core/keybindings')
+require('core/movement')
+require('core/settings')
+require('custom_commands')
+require('mappings')
+require('diagnostics')
+require('plugin_setup')
+require('rust')
+--lua require('sidebars')
+require('snippets')
+require('telescope')
 
-" Must be after settings
-lua require('core/highlight')
+--Must be after settings
+require('core/highlight')
+EOF
 
-function! BytesInBuffer()
-  return line2byte(line('$') + 1)
-endfunction
-
-function! WordCount()
-  let a='N/A'
-  if has_key(wordcount(), 'visual_words')
-    let a=wordcount().visual_words
-  endif
-  return a
-endfunction
-
-augroup CursorLine
-  au!
-  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  au WinLeave * setlocal nocursorline
-  nnoremap <leader>v :set cursorline! cursorcolumn!<CR>
-
-  " Highlight current line and set mark l so that you can go back to it with 'l
-  nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
-augroup END
-
-set statusline=
-set statusline+=%#StatusMain#%{''}
-set statusline+=\ 
-set statusline+=%=
-set statusline+=%#StatusMain#%{''}
-set statusline+=%#StatusAccent#%{''}
-set statusline+=%(Selection=%{WordCount()}\ Words=%{wordcount().words}\ Bytes=%{BytesInBuffer()}\ %l,%c%V\ %=\ %P%)
+vnoremap m :'<,'>!xclip -i; xclip -o;/home/sam/tts/tts_command<CR>
