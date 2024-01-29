@@ -10,6 +10,7 @@ vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<cr>', { desc = "Search f
 vim.keymap.set('n', '<leader>fh', ':Telescope help_tags<cr>', { desc = "Search for help tags" })
 vim.keymap.set('n', '<leader>ft', ':Telescope<cr>', { desc = "Search for everything" })
 
+-- Insert filename
 vim.keymap.set('n', '<leader>fn', function()
   require('telescope.builtin').find_files({
     find_command = { 'rg', '--files', '--iglob', '!.git', '--hidden', '--glob', '!.git/*' },
@@ -24,6 +25,7 @@ vim.keymap.set('n', '<leader>fn', function()
   })
 end, { desc = "Insert filename under cursor" })
 
+-- Search for files in git repo
 vim.keymap.set('n', '<leader>fj', function()
   require('telescope.builtin').find_files({
     find_command = { 'git', 'ls-files' },
@@ -39,9 +41,11 @@ vim.keymap.set('n', '<leader>fj', function()
   })
 end, { desc = "Search for Git files and open" })
 
+-- Color schemes
 vim.keymap.set('n', '<leader>fc', function()
   vim.cmd(':Telescope colorscheme');
 end, { desc = "Search for colorschemes" })
+
 vim.keymap.set('n', '<leader>fC', function()
   vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
   vim.cmd('hi EndOfBuffer guibg=NONE ctermbg=NONE')
@@ -59,39 +63,6 @@ vim.keymap.set('n', '<c-d>', '<c-d>zz', { desc = "Scroll down half a page" })
 vim.keymap.set('n', '<c-u>', '<c-u>zz', { desc = "Scroll up half a page" })
 vim.keymap.set('n', '<F4>', ':make run<cr>', { desc = "Run make" })
 
--- Bindings for C/C++
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  pattern = { "*.c", "*.cpp" },
-  callback = function()
-    vim.keymap.set('n', '<F5>', ':make run<cr>', { desc = "Run make" })
-    vim.keymap.set('n', '<leader>F', "mm:%!clang-format<cr>'mzz", { desc = "Format using clang-format" })
-  end,
-})
-
--- Bindings for Rust
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  pattern = { "*.rs" },
-  callback = function()
-    vim.keymap.set('n', '<leader>F', ":!cargo fmt<cr>", { desc = "Format using cargo fmt" })
-  end,
-})
-
--- EasyMotion
--- <Leader>f{char} to move to {char}
-vim.api.nvim_set_keymap('n', '<leader>mf', '<Plug>(easymotion-bd-f)', {})
-vim.api.nvim_set_keymap('x', '<leader>mf', '<Plug>(easymotion-overwin-f)', {})
-
--- s{char}{char} to move to {char}{char}
-vim.api.nvim_set_keymap('n', '<leader>ms', '<Plug>(easymotion-overwin-f2)', {})
-
--- Move to line
-vim.api.nvim_set_keymap('n', '<leader>ml', '<Plug>(easymotion-bd-jk)', {})
-vim.api.nvim_set_keymap('x', '<leader>ml', '<Plug>(easymotion-overwin-line)', {})
-
--- Move to word
-vim.api.nvim_set_keymap('n', '<leader>mw', '<Plug>(easymotion-bd-w)', {})
-vim.api.nvim_set_keymap('x', '<leader>mw', '<Plug>(easymotion-overwin-w)', {})
-
 -- Print out current date
 vim.api.nvim_set_keymap('n', '<F5>', ':read !date "+\\%Y-\\%m-\\%d"<CR>', {})
 vim.api.nvim_set_keymap('n', '<S-F5>', ':read !date "+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S"<CR>', {})
@@ -106,7 +77,18 @@ vim.api.nvim_set_keymap('n', '<leader>o', ':!firefox %<cr>', { desc = "Open curr
 vim.api.nvim_set_keymap('n', '<leader>O', ':!firefox --new-window %<cr>',
   { desc = "Open current file in Firefox in a new window" })
 
-vim.keymap.set('n', '<leader>s', function()
+function Search_all_files()
+  local search_string = vim.fn.input("Enter search string: ")
+  local cmd = string.format(":vimgrep /%s/ `find`", search_string)
+  vim.fn.setqflist({}, ' ')
+  vim.cmd('cclose')
+  vim.cmd(cmd)
+  vim.cmd('copen')
+  vim.cmd('wincmd L')
+  vim.cmd('vertical resize 40')
+end
+
+function Search_git_files()
   local search_string = vim.fn.input("Enter search string: ")
   local cmd = string.format(":vimgrep /%s/ `git ls-files`", search_string)
   vim.fn.setqflist({}, ' ')
@@ -115,4 +97,8 @@ vim.keymap.set('n', '<leader>s', function()
   vim.cmd('copen')
   vim.cmd('wincmd L')
   vim.cmd('vertical resize 40')
-end, { desc = "Search through git files using vimgrep" })
+end
+
+vim.keymap.set('n', '<leader>s', function()
+  Search_all_files()
+end, { desc = "Search through files using vimgrep" })
